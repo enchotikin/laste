@@ -8,7 +8,6 @@ client.on('ready', () => {
   console.log(`BOT: ${client.user.username} adı ile giriş yaptı!`);
 });
 
-
 client.on('message', msg => {
   console.log(`LOG: S: ${msg.guild.name} M: ${msg.content} Y: ${msg.author.tag}`);
   if (msg.author.id === ayarlar.id) return;
@@ -20,16 +19,16 @@ client.on('message', msg => {
   if (msg.content.toLowerCase() === prefix + 'ping') {
     msg.reply('Pong! **' + client.ping + '** ms');
   }
-	
-
-	client.on('message', msg => {
-  if (msg.content.toLowerCase === 'Sa') {
+  if (msg.content.toLowerCase() === 'sa') {
     msg.reply('Aleyküm selam Yıldırım Ailesine Tekrardan Hoşgeldin!');
   }
-
   if (msg.content.toLowerCase() === prefix + 'yaz') {
     msg.delete();
     msg.channel.sendMessage(msg.content);
+  }
+  if (msg.content.toLowerCase() === prefix + 'temizle') {
+    msg.channel.bulkDelete(100);
+    msg.channel.sendMessage("100 adet mesaj silindi! ");
   }
   if (msg.content.toLowerCase() === prefix + 'reboot') {
     if (msg.author.id !== ayarlar.sahip) {
