@@ -2,44 +2,36 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const ayarlar = require('./ayarlar.json');
 
+require('./util/eventLoader')(client);
+
 var prefix = ayarlar.prefix;
 
-client.on('ready', () => {
-  console.log(`BOT: ${client.user.username} adı ile giriş yaptı!`);
+client.on("guildMemberAdd", member => {
+
+	var channel = member.guild.channels.find("name", "gelen-giden");
+	if (!channel) return;
+
+	var role = member.guild.roles.find("name", "😘 Yıldırım Ailesi 😘");
+	if (!role) return;
+
+	member.addRole(role);
+
+	channel.send(member + " artık " + role + " rolü ile aramızda");
+
+	member.send("Aramıza hoş geldin! Artık @😘 Yıldırım Ailesi 😘 rolüne sahipsin!")
+
+});
+
+client.on('guildBanAdd' , (guild, user) => {
+  let Banyiyenler = guild.channels.find('name', 'ban-yiyenler');
+  if (!Banyiyenler) return;
+  Banyiyenler.send('https://media.giphy.com/media/8njotXALXXNrW/giphy.gif **Adalet dağıtma zamanı gelmiş!**  '+ user.username +  ' **Aileden Kovuldun Güle Güle** :fist: :writing_hand:  :spy:' );
 });
 
 client.on('message', msg => {
-  console.log(`LOG: S: ${msg.guild.name} M: ${msg.content} Y: ${msg.author.tag}`);
-  if (msg.author.id === ayarlar.id) return;
-  if (msg.author.bot) return;
-
-  if (!msg.content.startsWith(prefix)) {
-	  return;
-  }
-  if (msg.content.toLowerCase() === prefix + 'ping') {
-    msg.reply('Pong! **' + client.ping + '** ms');
-  }
   if (msg.content.toLowerCase() === 'sa') {
-    msg.reply('Aleyküm selam Yıldırım Ailesine Tekrardan Hoşgeldin!');
-  }
-  if (msg.content.toLowerCase() === prefix + 'yaz') {
-    msg.delete();
-    msg.channel.sendMessage(msg.content);
-  }
-  if (msg.content.toLowerCase() === prefix + 'temizle') {
-    msg.channel.bulkDelete(100);
-    msg.channel.sendMessage("100 adet mesaj silindi! ");
-  }
-  if (msg.content.toLowerCase() === prefix + 'reboot') {
-    if (msg.author.id !== ayarlar.sahip) {
-      msg.reply('Benim yapımcım değilsin!');
-    } else {
-      msg.channel.sendMessage(`Bot yeniden başlatılıyor...`).then(msg => {
-      console.log(`BOT: Bot yeniden başlatılıyor...`);
-      process.exit(0);
-    })
-   }
-  }
+      msg.reply(' :heart: Aleyküm Selam Yıldırım Ailesine Hoşgeldin :heart: !');
+}
 });
 
 client.login(process.env.BOT_TOKEN);
