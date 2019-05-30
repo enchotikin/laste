@@ -19,9 +19,8 @@ client.on('message', msg => {
   if (msg.content.toLowerCase() === prefix + 'ping') {
     msg.reply('Pong! **' + client.ping + '** ms');
   }
-client.on('message', msg => {
   if (msg.content.toLowerCase() === 'sa') {
-      msg.reply(' :heart: Aleyküm Selam Yıldırım Ailesine Hoşgeldin :heart: !');
+    msg.reply('Aleyküm selam Yıldırım Ailesine Tekrardan Hoşgeldin!');
   }
   if (msg.content.toLowerCase() === prefix + 'yaz') {
     msg.delete();
