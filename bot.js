@@ -20,9 +20,13 @@ client.on('message', msg => {
   if (msg.content.toLowerCase() === prefix + 'ping') {
     msg.reply('Pong! **' + client.ping + '** ms');
   }
-  if (msg.content.toLowerCase() === 'sa') {
+	
+
+	client.on('message', msg => {
+  if (msg.content.toLowerCase === 'Sa') {
     msg.reply('Aleyküm selam Yıldırım Ailesine Tekrardan Hoşgeldin!');
   }
+
   if (msg.content.toLowerCase() === prefix + 'yaz') {
     msg.delete();
     msg.channel.sendMessage(msg.content);
